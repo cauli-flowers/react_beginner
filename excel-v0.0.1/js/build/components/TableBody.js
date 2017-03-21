@@ -10,14 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _TableHeader = require('./TableHeader');
-
-var _TableHeader2 = _interopRequireDefault(_TableHeader);
-
-var _TableBody = require('./TableBody');
-
-var _TableBody2 = _interopRequireDefault(_TableBody);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,32 +18,39 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Table = function (_Component) {
-    _inherits(Table, _Component);
+var TableBody = function (_Component) {
+    _inherits(TableBody, _Component);
 
-    function Table(props) {
-        _classCallCheck(this, Table);
+    function TableBody(props) {
+        _classCallCheck(this, TableBody);
 
-        return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props)); // TODO: 'this' is not allowed before super()
-        // this.state = {
-        //     headers: props.headers,
-        //     data: props.data,
-        // };
+        return _possibleConstructorReturn(this, (TableBody.__proto__ || Object.getPrototypeOf(TableBody)).call(this, props));
     }
 
-    _createClass(Table, [{
+    _createClass(TableBody, [{
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                'table',
+                'tbody',
                 null,
-                _react2.default.createElement(_TableHeader2.default, { initialData: this.props.headers }),
-                _react2.default.createElement(_TableBody2.default, { initialData: this.props.data })
+                _react2.default.createElement(
+                    'tr',
+                    null,
+                    this.props.initialData.map(function (row, rowidx) {
+                        return row.map(function (cell, idx) {
+                            return _react2.default.createElement(
+                                'td',
+                                { key: idx, 'data-row': rowidx },
+                                cell
+                            );
+                        });
+                    })
+                )
             );
         }
     }]);
 
-    return Table;
+    return TableBody;
 }(_react.Component);
 
-exports.default = Table;
+exports.default = TableBody;

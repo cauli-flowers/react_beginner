@@ -19,10 +19,11 @@ var _Table2 = _interopRequireDefault(_Table);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var headers = ['title', 'year', 'price'];
+var data = [['sample1', '2017', '1,000']];
 
 _reactDom2.default.render(_react2.default.createElement(
     'div',
     null,
     _react2.default.createElement(_Logo2.default, null),
-    _react2.default.createElement(_Table2.default, { headers: headers })
+    _react2.default.createElement(_Table2.default, { headers: headers, data: data })
 ), document.getElementById('app'));
