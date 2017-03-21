@@ -4,7 +4,7 @@
 }
 
 .Logo .image {
-    background-image: url('images/cauliflower.png');
+    background-image: url('../../images/cauliflower.png');
     background-size: cover;
     display: inline-block;
     width: 80px;
