@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello React</title>
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        <script src="react/build/react.js"></script>
+        <script src="react/build/react-dom.js"></script>
+        <script>
+            var headers = [
+                'タイトル', '著者', '言語', '出版年', '売上部数'
+            ];
+            var data = [
+                ['Title1', 'Author1', 'Japanese', '1990', '1,000'],
+                ['Title2', 'Author2', 'English', '2017', '3,000'],
+                ['Title3', 'Author3', 'Japanese', '2014', '29,000'],
+            ]
+
+            var Excel = React.createClass({
+                displayName: 'Excel',
+                render: function() {
+                    return React.DOM.table(null,
+                        React.DOM.thead(null,
+                            React.DOM.tr(null,
+                                this.props.headers.map(function(title, idx) {
+                                    return React.DOM.th({key: idx}, title);
+                                })
+                            )
+                        )
+                    );
+                }
+            });
+
+            ReactDOM.render(
+                React.createElement(Excel, {
+                    headers: headers,
+                    itinialData: data,
+                }),
+                document.getElementById('app')
+            )
+        </script>
+    </body>
+</html>
