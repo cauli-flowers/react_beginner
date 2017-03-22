@@ -7,7 +7,7 @@ class TableHeader extends Component {
 
     render() {
         return (
-            <thead>
+            <thead onClick={this._sort}>
                 <tr>{
                     this.props.initialData.map(function(title, idx) {
                         return <th key={idx}>{title}</th>;

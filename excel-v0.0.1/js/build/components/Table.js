@@ -10,14 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _TableHeader = require('./TableHeader');
-
-var _TableHeader2 = _interopRequireDefault(_TableHeader);
-
-var _TableBody = require('./TableBody');
-
-var _TableBody2 = _interopRequireDefault(_TableBody);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,26 +24,84 @@ var Table = function (_Component) {
     function Table(props) {
         _classCallCheck(this, Table);
 
-        return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props)); // TODO: 'this' is not allowed before super()
-        // this.state = {
-        //     headers: props.headers,
-        //     data: props.data,
-        // };
+        // TODO: 'this' is not allowed before super()
+        var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
+
+        _this.state = {
+            data: _this.props.data,
+            sortby: null
+        };
+        return _this;
     }
 
     _createClass(Table, [{
+        key: '_sort',
+        value: function _sort(e) {
+            var column = e.target.cellIndex;
+            var data = Array.from(this.state.data);
+            data.sort(function (a, b) {
+                return a[column] < b[column] ? 1 : -1;
+            });
+            this.setState({
+                data: data,
+                sortby: column
+            });
+        }
+    }, {
+        key: '_edit',
+        value: function _edit() {}
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 'table',
                 null,
-                _react2.default.createElement(_TableHeader2.default, { initialData: this.props.headers }),
-                _react2.default.createElement(_TableBody2.default, { initialData: this.props.data })
+                _react2.default.createElement(
+                    'thead',
+                    { onClick: this._sort.bind(this) },
+                    _react2.default.createElement(
+                        'tr',
+                        null,
+                        this.props.headers.map(function (title, idx) {
+                            if (this.state.sortby === idx) {
+                                title += ' *';
+                            }
+                            return _react2.default.createElement(
+                                'th',
+                                { key: idx },
+                                title
+                            );
+                        }, this)
+                    )
+                ),
+                _react2.default.createElement(
+                    'tbody',
+                    { onDoubleClick: this._edit.bind(this) },
+                    this.state.data.map(function (row, rowidx) {
+                        return _react2.default.createElement(
+                            'tr',
+                            { key: rowidx },
+                            row.map(function (cell, idx) {
+                                return _react2.default.createElement(
+                                    'td',
+                                    { key: idx, 'data-row': rowidx },
+                                    cell
+                                );
+                            })
+                        );
+                    })
+                )
             );
         }
     }]);
 
     return Table;
 }(_react.Component);
+
+// Table.propTypes = {
+//     data: PropTypes.arrayOf(
+//         PropTypes.string
+//     )
+// };
 
 exports.default = Table;
