@@ -114,7 +114,8 @@ var Table = function (_Component) {
 
         _this.state = {
             data: _this.props.data,
-            sortby: null
+            sortby: null,
+            edit: null
         };
         return _this;
     }
@@ -134,7 +135,14 @@ var Table = function (_Component) {
         }
     }, {
         key: '_edit',
-        value: function _edit() {}
+        value: function _edit(e) {
+            this.setState({
+                edit: {
+                    row: parseInt(e.target.dataset.row),
+                    cell: e.target.cellIndex
+                }
+            });
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -167,14 +175,23 @@ var Table = function (_Component) {
                             'tr',
                             { key: rowidx },
                             row.map(function (cell, idx) {
+                                var content = cell;
+                                var edit = this.state.edit;
+                                if (edit && edit.row === rowidx && edit.cell === idx) {
+                                    content = _react2.default.createElement(
+                                        'form',
+                                        null,
+                                        _react2.default.createElement('input', { type: 'text', defaultValue: cell })
+                                    );
+                                }
                                 return _react2.default.createElement(
                                     'td',
                                     { key: idx, 'data-row': rowidx },
-                                    cell
+                                    content
                                 );
-                            })
+                            }, this)
                         );
-                    })
+                    }, this)
                 )
             );
         }

@@ -6,6 +6,7 @@ class Table extends Component {
         this.state = {
             data: this.props.data,
             sortby: null,
+            edit: null,
         };
     }
 
@@ -21,8 +22,13 @@ class Table extends Component {
         });
     }
 
-    _edit() {
-        
+    _edit(e) {
+        this.setState({
+            edit: {
+                row: parseInt(e.target.dataset.row),
+                cell: e.target.cellIndex,
+            }
+        });
     }
 
     render() {
@@ -43,11 +49,20 @@ class Table extends Component {
                         return (
                             <tr key={rowidx}>{
                                 row.map(function(cell, idx) {
-                                    return <td key={idx} data-row={rowidx}>{cell}</td>;
-                                })
+                                    let content = cell;
+                                    const edit = this.state.edit;
+                                    if (edit && edit.row === rowidx && edit.cell === idx) {
+                                        content = (
+                                            <form>
+                                                <input type="text" defaultValue={cell} />
+                                            </form>
+                                        );
+                                    }
+                                    return <td key={idx} data-row={rowidx}>{content}</td>;
+                                }, this)
                             }</tr>
                         );
-                    })}
+                    }, this)}
                 </tbody>
             </table>
         );
