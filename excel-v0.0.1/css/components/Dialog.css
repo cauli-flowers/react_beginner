@@ -57,24 +57,3 @@
 .DialogFooter .Button {
     margin: 10px;
 }
-.Logo {
-    height: 80px;
-    display: flex;
-}
-
-.Logo .image {
-    background-image: url('images/cauliflower.png');
-    background-size: cover;
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-}
-
-.Logo .title {
-    display: flex;
-    line-height: 80px;
-    padding-left: 30px;
-    font-size: 60px;
-    font-family: Osaka, Arial, sans-serif;
-    color: #65af65;
-}

@@ -2,8 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Logo from './components/Logo';
-import Table from './components/Table';
+import Cauliflower from './components/Cauliflower'
 
 const headers = ['title', 'year', 'price'];
 const data = [
@@ -14,8 +13,7 @@ const data = [
 
 ReactDOM.render(
     <div>
-        <Logo />
-        <Table headers={headers} data={data} />
+        <Cauliflower headers={headers} data={data} />
     </div>,
     document.getElementById('app')
 );

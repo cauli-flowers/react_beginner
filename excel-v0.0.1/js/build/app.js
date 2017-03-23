@@ -8,13 +8,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Logo = require('./components/Logo');
+var _Cauliflower = require('./components/Cauliflower');
 
-var _Logo2 = _interopRequireDefault(_Logo);
-
-var _Table = require('./components/Table');
-
-var _Table2 = _interopRequireDefault(_Table);
+var _Cauliflower2 = _interopRequireDefault(_Cauliflower);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,6 +20,5 @@ var data = [['sample1', '2017', '1,000'], ['sample2', '2016', '4,000'], ['sample
 _reactDom2.default.render(_react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_Logo2.default, null),
-    _react2.default.createElement(_Table2.default, { headers: headers, data: data })
+    _react2.default.createElement(_Cauliflower2.default, { headers: headers, data: data })
 ), document.getElementById('app'));
