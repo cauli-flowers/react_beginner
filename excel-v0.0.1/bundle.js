@@ -16,7 +16,11 @@ var _Cauliflower2 = _interopRequireDefault(_Cauliflower);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var headers = ['title', 'year', 'price'];
-var data = [['sample1', '2017', '1,000'], ['sample2', '2016', '4,000'], ['sample3', '2015', '8,000']];
+var data = [
+// ['sample1', '2017', '1,000'],
+// ['sample2', '2016', '4,000'],
+// ['sample3', '2015', '8,000'],
+{ title: 'sample1', year: '2017', price: '1000' }, { title: 'sample2', year: '2015', price: '5000' }, { title: 'sample3', year: '2016', price: '8000' }];
 
 _reactDom2.default.render(_react2.default.createElement(
     'div',
@@ -83,6 +87,21 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
+        key: '_add',
+        value: function _add() {
+            var data = Array.from(this.state.data);
+            var inputData = this.refs.form.getData();
+
+            console.dirxml(inputData);
+            data.unshift(inputData);
+            console.dirxml(data);
+            // //data.push(this.refs.form.getData());
+            this.setState({
+                data: data,
+                isOpen: false
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -97,8 +116,11 @@ var Cauliflower = function (_Component) {
                 _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data }),
                 this.state.isOpen ? _react2.default.createElement(
                     _Dialog2.default,
-                    { modal: true, header: 'Test', onAction: this._openDialog.bind(this) },
-                    _react2.default.createElement(_Form2.default, null)
+                    { modal: true, header: 'Test', onAction: this._add.bind(this) },
+                    _react2.default.createElement(_Form2.default, {
+                        fields: [{ label: 'title', type: 'text', id: 'title' }, { label: 'year', type: 'number', id: 'year' }, { label: 'price', type: 'number', id: 'price' }],
+                        ref: 'form',
+                        initialData: { title: 'default', year: 2017, price: 0 } })
                 ) : null
             );
         }
@@ -193,6 +215,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -221,9 +245,43 @@ var Form = function (_Component) {
     }
 
     _createClass(Form, [{
+        key: 'getData',
+        value: function getData() {
+            var _this2 = this;
+
+            var data = {};
+            this.props.fields.forEach(function (field) {
+                return data[field.id] = _this2.refs[field.id].getValue();
+            });
+            return data;
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement('form', { className: 'Form' });
+            var _this3 = this;
+
+            return _react2.default.createElement(
+                'form',
+                { className: 'Form' },
+                this.props.fields.map(function (field) {
+                    var prefilled = _this3.props.initialData && _this3.props.initialData[field.id];
+                    if (!_this3.props.readonly) {
+                        return _react2.default.createElement(
+                            'div',
+                            { className: 'FormRow', key: field.id },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'FormLabel', htmlFor: field.id },
+                                field.label
+                            ),
+                            _react2.default.createElement(_FormInput2.default, _extends({}, field, { ref: field.id, defaultValue: prefilled }))
+                        );
+                    }
+                    if (!prefilled) {
+                        return null;
+                    }
+                }, this)
+            );
         }
     }]);
 
@@ -260,7 +318,7 @@ var FormInput = function (_Component) {
     function FormInput(props) {
         _classCallCheck(this, FormInput);
 
-        return _possibleConstructorReturn(this, (FormInput.__proto__ || Object.getPrototypeOf(FormInput)).call(this, psops));
+        return _possibleConstructorReturn(this, (FormInput.__proto__ || Object.getPrototypeOf(FormInput)).call(this, props));
     }
 
     _createClass(FormInput, [{
@@ -274,7 +332,7 @@ var FormInput = function (_Component) {
             var common = {
                 id: this.props.id,
                 ref: 'input',
-                defaultValue: this.this.props.defaultValue
+                defaultValue: this.props.defaultValue
             };
 
             switch (this.props.type) {
@@ -292,7 +350,7 @@ var FormInput = function (_Component) {
 }(_react.Component);
 
 FormInput.propTypes = {
-    type: _react.PropTypes.oneOf(['number', 'textarea']),
+    type: _react.PropTypes.oneOf(['number', 'textarea', 'text']),
     id: _react.PropTypes.string,
     options: _react.PropTypes.array,
     defaultValue: _react.PropTypes.any

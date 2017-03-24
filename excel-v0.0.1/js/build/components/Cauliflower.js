@@ -57,6 +57,21 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
+        key: '_add',
+        value: function _add() {
+            var data = Array.from(this.state.data);
+            var inputData = this.refs.form.getData();
+
+            console.dirxml(inputData);
+            data.unshift(inputData);
+            console.dirxml(data);
+            // //data.push(this.refs.form.getData());
+            this.setState({
+                data: data,
+                isOpen: false
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -71,8 +86,11 @@ var Cauliflower = function (_Component) {
                 _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data }),
                 this.state.isOpen ? _react2.default.createElement(
                     _Dialog2.default,
-                    { modal: true, header: 'Test', onAction: this._openDialog.bind(this) },
-                    _react2.default.createElement(_Form2.default, null)
+                    { modal: true, header: 'Test', onAction: this._add.bind(this) },
+                    _react2.default.createElement(_Form2.default, {
+                        fields: [{ label: 'title', type: 'text', id: 'title' }, { label: 'year', type: 'number', id: 'year' }, { label: 'price', type: 'number', id: 'price' }],
+                        ref: 'form',
+                        initialData: { title: 'default', year: 2017, price: 0 } })
                 ) : null
             );
         }

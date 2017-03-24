@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 class FormInput extends Component {
     constructor(props) {
-        super(psops);
+        super(props);
     }
 
     getValue() {
@@ -13,7 +13,7 @@ class FormInput extends Component {
         const common = {
             id: this.props.id,
             ref: 'input',
-            defaultValue: this.this.props.defaultValue,
+            defaultValue: this.props.defaultValue,
         };
 
         switch (this.props.type) {
@@ -28,7 +28,7 @@ class FormInput extends Component {
 }
 
 FormInput.propTypes = {
-    type: PropTypes.oneOf(['number', 'textarea']),
+    type: PropTypes.oneOf(['number', 'textarea', 'text']),
     id: PropTypes.string,
     options: PropTypes.array,
     defaultValue: PropTypes.any

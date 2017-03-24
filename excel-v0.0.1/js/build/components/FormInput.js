@@ -26,7 +26,7 @@ var FormInput = function (_Component) {
     function FormInput(props) {
         _classCallCheck(this, FormInput);
 
-        return _possibleConstructorReturn(this, (FormInput.__proto__ || Object.getPrototypeOf(FormInput)).call(this, psops));
+        return _possibleConstructorReturn(this, (FormInput.__proto__ || Object.getPrototypeOf(FormInput)).call(this, props));
     }
 
     _createClass(FormInput, [{
@@ -40,7 +40,7 @@ var FormInput = function (_Component) {
             var common = {
                 id: this.props.id,
                 ref: 'input',
-                defaultValue: this.this.props.defaultValue
+                defaultValue: this.props.defaultValue
             };
 
             switch (this.props.type) {
@@ -58,7 +58,7 @@ var FormInput = function (_Component) {
 }(_react.Component);
 
 FormInput.propTypes = {
-    type: _react.PropTypes.oneOf(['number', 'textarea']),
+    type: _react.PropTypes.oneOf(['number', 'textarea', 'text']),
     id: _react.PropTypes.string,
     options: _react.PropTypes.array,
     defaultValue: _react.PropTypes.any

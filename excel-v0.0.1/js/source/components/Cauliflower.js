@@ -19,6 +19,20 @@ class Cauliflower extends Component {
         });
     }
 
+    _add() {
+        let data = Array.from(this.state.data);
+        let inputData = this.refs.form.getData();
+
+        console.dirxml(inputData)
+        data.unshift(inputData);
+        console.dirxml(data)
+        // //data.push(this.refs.form.getData());
+        this.setState({
+            data: data,
+            isOpen: false,
+        });
+    }
+
     render() {
         return (
             <div>
@@ -26,8 +40,15 @@ class Cauliflower extends Component {
                 <button onClick={this._openDialog.bind(this)}>add</button>
                 <Table headers={this.props.headers} data={this.state.data} />
                 {this.state.isOpen
-                    ? <Dialog modal={true} header={'Test'} onAction={this._openDialog.bind(this)}>
-                        <Form />
+                    ? <Dialog modal={true} header={'Test'} onAction={this._add.bind(this)}>
+                        <Form
+                            fields={[
+                                {label: 'title', type: 'text', id: 'title'},
+                                {label: 'year', type: 'number', id: 'year'},
+                                {label: 'price', type: 'number', id: 'price'},
+                            ]}
+                            ref="form"
+                            initialData={{title: 'default', year: 2017, price: 0}} />
                       </Dialog>
                     : null
                 }
