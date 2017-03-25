@@ -78,9 +78,16 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
-        key: '_showState',
-        value: function _showState() {
-            console.dirxml(this.state);
+        key: '_exportData',
+        value: function _exportData(e) {
+            var data = JSON.stringify(this.state.data);
+            console.log(data);
+            var URL = window.URL || window.webkitURL;
+            var blob = new Blob([data], { type: 'text/json' });
+            console.dirxml(blob);
+            e.target.href = URL.createObjectURL(blob);
+            console.log(e.target.href);
+            e.target.download = 'data.json';
         }
     }, {
         key: 'render',
@@ -95,9 +102,9 @@ var Cauliflower = function (_Component) {
                     'add'
                 ),
                 _react2.default.createElement(
-                    'button',
-                    { onClick: this._showState.bind(this) },
-                    'show'
+                    'a',
+                    { onClick: this._exportData.bind(this), href: 'data.json' },
+                    'export'
                 ),
                 _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data }),
                 this.state.isOpen ? _react2.default.createElement(

@@ -4,3 +4,4 @@
 * add data :o:
 * edit data :o:
 * export data (json) :x:
+* save data to localStorage :x:

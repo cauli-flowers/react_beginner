@@ -149,6 +149,7 @@
                     var URL = window.URL || window.webkitURL;
                     var blob = new Blob([contents], {type: 'text/' + format});
                     ev.target.href = URL.createObjectURL(blob);
+                    console.log(ev.target.href);
                     ev.target.download = 'data.' + format;
                 },
 

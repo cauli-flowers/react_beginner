@@ -38,8 +38,15 @@ class Cauliflower extends Component {
         });
     }
 
-    _showState() {
-        console.dirxml(this.state)
+    _exportData(e) {
+        const data = JSON.stringify(this.state.data);
+        console.log(data);
+        const URL = window.URL || window.webkitURL;
+        const blob = new Blob([data], {type: 'text/json'});
+        console.dirxml(blob);
+        e.target.href = URL.createObjectURL(blob);
+        console.log(e.target.href);
+        e.target.download = 'data.json';
     }
 
     render() {
@@ -47,7 +54,7 @@ class Cauliflower extends Component {
             <div>
                 <Logo />
                 <button onClick={this._openDialog.bind(this)}>add</button>
-                <button onClick={this._showState.bind(this)}>show</button>
+                <a onClick={this._exportData.bind(this)} href="data.json">export</a>
                 <Table headers={this.props.headers} data={this.state.data} />
                 {this.state.isOpen
                     ? <Dialog modal={true} header={'Test'} onAction={this._add.bind(this)}>
