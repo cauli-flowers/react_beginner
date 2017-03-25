@@ -8,12 +8,12 @@ class Cauliflower extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: this.props.data,
+            data: props.data,
             isOpen: false,
         };
     }
 
-    _openDialog(e) {
+    _openDialog() {
         this.setState({
             isOpen: this.state.isOpen ? false : true,
         });
@@ -31,12 +31,19 @@ class Cauliflower extends Component {
         });
     }
 
+    _onDataChange(data) {
+        console.log("change");
+        this.setState({
+            data: data,
+        });
+    }
+
     render() {
         return (
             <div>
                 <Logo />
                 <button onClick={this._openDialog.bind(this)}>add</button>
-                <Table headers={this.props.headers} data={this.state.data} />
+                <Table headers={this.props.headers} data={this.state.data} onDataChange={this._onDataChange.bind(this)} />
                 {this.state.isOpen
                     ? <Dialog modal={true} header={'Test'} onAction={this._add.bind(this)}>
                         <Form
@@ -56,7 +63,10 @@ class Cauliflower extends Component {
 }
 
 Cauliflower.propTypes = {
-
+    data: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+    isOpen: PropTypes.bool,
 };
 
 export default Cauliflower

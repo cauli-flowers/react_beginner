@@ -1,0 +1,30 @@
+{
+    "name": "Cauliflower",
+    "version": "1.0.0",
+    "babel": {
+        "presets": [
+            "es2015",
+            "react"
+        ]
+    },
+    "scripts": {
+        "watch": "watch \"sh scripts/build.sh\" js/source css/"
+    },
+    "eslintConfig": {
+        "parser": "babel-eslint",
+        "plugins": [
+            "babel",
+            "react"
+        ],
+        "extends": "eslint:recommended",
+        "env": {
+            "browser": true
+        },
+        "rules": {
+            "react/jsx-uses-react": 1,
+            "comma-dangle": [2, "always-multiline"],
+            "no-console": 0,
+            "react/jsx-uses-vars": 1
+        }
+    }
+}

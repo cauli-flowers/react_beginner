@@ -69,7 +69,7 @@ var Cauliflower = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Cauliflower.__proto__ || Object.getPrototypeOf(Cauliflower)).call(this, props));
 
         _this.state = {
-            data: _this.props.data,
+            data: props.data,
             isOpen: false
         };
         return _this;
@@ -77,7 +77,7 @@ var Cauliflower = function (_Component) {
 
     _createClass(Cauliflower, [{
         key: '_openDialog',
-        value: function _openDialog(e) {
+        value: function _openDialog() {
             this.setState({
                 isOpen: this.state.isOpen ? false : true
             });
@@ -96,6 +96,14 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
+        key: '_onDataChange',
+        value: function _onDataChange(data) {
+            console.log("change");
+            this.setState({
+                data: data
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -107,7 +115,7 @@ var Cauliflower = function (_Component) {
                     { onClick: this._openDialog.bind(this) },
                     'add'
                 ),
-                _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data }),
+                _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data, onDataChange: this._onDataChange.bind(this) }),
                 this.state.isOpen ? _react2.default.createElement(
                     _Dialog2.default,
                     { modal: true, header: 'Test', onAction: this._add.bind(this) },
@@ -123,7 +131,10 @@ var Cauliflower = function (_Component) {
     return Cauliflower;
 }(_react.Component);
 
-Cauliflower.propTypes = {};
+Cauliflower.propTypes = {
+    data: _react.PropTypes.arrayOf(_react.PropTypes.string),
+    isOpen: _react.PropTypes.bool
+};
 
 exports.default = Cauliflower;
 },{"./Dialog":3,"./Form":4,"./Logo":6,"./Table":7,"react":183}],3:[function(require,module,exports){
@@ -428,7 +439,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 
 
 var Table = function (_Component) {
     _inherits(Table, _Component);
@@ -462,7 +473,6 @@ var Table = function (_Component) {
     }, {
         key: '_edit',
         value: function _edit(e) {
-            console.log(e.target.dataset);
             this.setState({
                 edit: {
                     row: parseInt(e.target.dataset.row),
@@ -482,6 +492,12 @@ var Table = function (_Component) {
                 data: data,
                 edit: null
             });
+            this._fireDataChange(data);
+        }
+    }, {
+        key: '_fireDataChange',
+        value: function _fireDataChange(data) {
+            this.props.onDataChange(data);
         }
     }, {
         key: 'render',
@@ -542,11 +558,9 @@ var Table = function (_Component) {
     return Table;
 }(_react.Component);
 
-// Table.propTypes = {
-//     data: PropTypes.arrayOf(
-//         PropTypes.string
-//     )
-// };
+Table.propTypes = {
+    data: _react.PropTypes.arrayOf(_react.PropTypes.string)
+};
 
 exports.default = Table;
 },{"./FormInput":5,"react":183}],8:[function(require,module,exports){

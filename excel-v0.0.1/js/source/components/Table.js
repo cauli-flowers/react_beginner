@@ -1,8 +1,10 @@
+// 
+
 import React, {Component, PropTypes} from 'react';
 import FormInput from './FormInput';
 
 class Table extends Component {
-    constructor(props) {
+    constructor(props: Object) {
         super(props) // TODO: 'this' is not allowed before super()
         this.state = {
             data: this.props.data,
@@ -23,12 +25,11 @@ class Table extends Component {
     }
 
     _edit(e) {
-        console.log(e.target.dataset);
         this.setState({
             edit: {
                 row: parseInt(e.target.dataset.row),
                 cell: e.target.dataset.cell,
-            }
+            },
         });
     }
 
@@ -41,7 +42,12 @@ class Table extends Component {
         this.setState({
             data: data,
             edit: null,
-        })
+        });
+        this._fireDataChange(data);
+    }
+
+    _fireDataChange(data) {
+        this.props.onDataChange(data);
     }
 
     render() {
@@ -71,7 +77,7 @@ class Table extends Component {
                                             </form>
                                         );
                                     }
-                                    return <td key={idx} data-row={rowidx}　data-cell={cell}>{content}</td>;
+                                    return <td key={idx} data-row={rowidx} data-cell={cell}>{content}</td>;
                                 }, this)
                             }</tr>
                         );
@@ -82,10 +88,10 @@ class Table extends Component {
     }
 }
 
-// Table.propTypes = {
-//     data: PropTypes.arrayOf(
-//         PropTypes.string
-//     )
-// };
+Table.propTypes = {
+    data: PropTypes.arrayOf(
+        PropTypes.string
+    ),
+};
 
 export default Table

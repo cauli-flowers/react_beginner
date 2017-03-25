@@ -1,8 +1,11 @@
-# JSのトランスパイル
+# transpile JS
 babel --presets react,es2015 js/source -d js/build
-# JSのパッケージング
+# packaging JS
 browserify js/build/app.js -o bundle.js
-# CSSのパッケージング
+# packaging CSS
 cat css/*/* css/*.css | sed 's/..\/..\/images/images/g' > bundle.css
-# 完了
+# Code Check（ESLint）
+eslint js/source
+flow
+# Complete !
 date; echo;

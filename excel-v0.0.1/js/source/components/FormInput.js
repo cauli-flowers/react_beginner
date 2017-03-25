@@ -31,7 +31,7 @@ FormInput.propTypes = {
     type: PropTypes.oneOf(['number', 'textarea', 'text']),
     id: PropTypes.string,
     options: PropTypes.array,
-    defaultValue: PropTypes.any
+    defaultValue: PropTypes.any,
 };
 
 export default FormInput

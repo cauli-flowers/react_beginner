@@ -1,7 +1,13 @@
 import React, {Component, PropTypes} from 'react';
 
+
+type Props = {
+    header: ?string,
+    modal: bool,
+};
+
 class Dialog extends Component {
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
     }
 
@@ -19,6 +25,7 @@ class Dialog extends Component {
         );
     }
 }
+
 
 Dialog.propTypes = {
     header: PropTypes.string.isRequired,

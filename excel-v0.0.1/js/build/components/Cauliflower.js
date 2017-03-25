@@ -43,7 +43,7 @@ var Cauliflower = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Cauliflower.__proto__ || Object.getPrototypeOf(Cauliflower)).call(this, props));
 
         _this.state = {
-            data: _this.props.data,
+            data: props.data,
             isOpen: false
         };
         return _this;
@@ -51,7 +51,7 @@ var Cauliflower = function (_Component) {
 
     _createClass(Cauliflower, [{
         key: '_openDialog',
-        value: function _openDialog(e) {
+        value: function _openDialog() {
             this.setState({
                 isOpen: this.state.isOpen ? false : true
             });
@@ -70,6 +70,14 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
+        key: '_onDataChange',
+        value: function _onDataChange(data) {
+            console.log("change");
+            this.setState({
+                data: data
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -81,7 +89,7 @@ var Cauliflower = function (_Component) {
                     { onClick: this._openDialog.bind(this) },
                     'add'
                 ),
-                _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data }),
+                _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data, onDataChange: this._onDataChange.bind(this) }),
                 this.state.isOpen ? _react2.default.createElement(
                     _Dialog2.default,
                     { modal: true, header: 'Test', onAction: this._add.bind(this) },
@@ -97,6 +105,9 @@ var Cauliflower = function (_Component) {
     return Cauliflower;
 }(_react.Component);
 
-Cauliflower.propTypes = {};
+Cauliflower.propTypes = {
+    data: _react.PropTypes.arrayOf(_react.PropTypes.string),
+    isOpen: _react.PropTypes.bool
+};
 
 exports.default = Cauliflower;
