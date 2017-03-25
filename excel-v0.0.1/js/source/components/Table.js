@@ -49,6 +49,7 @@ class Table extends Component {
             data: data,
             edit: null,
         });
+        localStorage.setItem('cauliflower', JSON.stringify(data));
     }
 
     render() {

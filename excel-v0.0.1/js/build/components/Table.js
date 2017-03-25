@@ -80,6 +80,7 @@ var Table = function (_Component) {
                 data: data,
                 edit: null
             });
+            localStorage.setItem('cauliflower', JSON.stringify(data));
         }
     }, {
         key: 'render',

@@ -29,6 +29,7 @@ class Cauliflower extends Component {
             data: data,
             isOpen: false,
         });
+        localStorage.setItem('cauliflower', JSON.stringify(data));
     }
 
     _onDataChange(data) {

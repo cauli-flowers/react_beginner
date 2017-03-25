@@ -68,6 +68,7 @@ var Cauliflower = function (_Component) {
                 data: data,
                 isOpen: false
             });
+            localStorage.setItem('cauliflower', JSON.stringify(data));
         }
     }, {
         key: '_onDataChange',

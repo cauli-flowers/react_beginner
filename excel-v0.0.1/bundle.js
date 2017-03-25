@@ -16,7 +16,17 @@ var _Cauliflower2 = _interopRequireDefault(_Cauliflower);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var headers = ['title', 'year', 'price'];
-var data = [{ title: 'sample1', year: '2017', price: '1000' }, { title: 'sample2', year: '2015', price: '5000' }, { title: 'sample3', year: '2016', price: '8000' }];
+// const data = [
+//     {title: 'sample1', year: '2017', price: '1000'},
+//     {title: 'sample2', year: '2015', price: '5000'},
+//     {title: 'sample3', year: '2016', price: '8000'},
+// ];
+
+var data = JSON.parse(localStorage.getItem('cauliflower'));
+
+if (!data) {
+    data = [];
+}
 
 _reactDom2.default.render(_react2.default.createElement(
     'div',
@@ -94,6 +104,7 @@ var Cauliflower = function (_Component) {
                 data: data,
                 isOpen: false
             });
+            localStorage.setItem('cauliflower', JSON.stringify(data));
         }
     }, {
         key: '_onDataChange',
@@ -516,6 +527,7 @@ var Table = function (_Component) {
                 data: data,
                 edit: null
             });
+            localStorage.setItem('cauliflower', JSON.stringify(data));
         }
     }, {
         key: 'render',
