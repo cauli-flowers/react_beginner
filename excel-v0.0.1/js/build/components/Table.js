@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _FormInput = require('./FormInput');
+
+var _FormInput2 = _interopRequireDefault(_FormInput);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37,47 +41,62 @@ var Table = function (_Component) {
 
     _createClass(Table, [{
         key: '_sort',
-        value: function _sort(e) {
-            var column = e.target.cellIndex;
+        value: function _sort(key) {
             var data = Array.from(this.state.data);
             data.sort(function (a, b) {
-                return a[column] < b[column] ? 1 : -1;
+                return a[key] < b[key] ? 1 : -1;
             });
             this.setState({
                 data: data,
-                sortby: column
+                sortby: key
             });
         }
     }, {
         key: '_edit',
         value: function _edit(e) {
+            console.log(e.target.dataset);
             this.setState({
                 edit: {
                     row: parseInt(e.target.dataset.row),
-                    cell: e.target.cellIndex
+                    cell: e.target.dataset.cell
                 }
+            });
+        }
+    }, {
+        key: '_save',
+        value: function _save(e) {
+            e.preventDefault();
+            var value = this.refs.input.getValue();
+            var data = Array.from(this.state.data);
+            data[this.state.edit.row][this.state.edit.cell] = value;
+            console.dirxml(data);
+            this.setState({
+                data: data,
+                edit: null
             });
         }
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 'table',
                 null,
                 _react2.default.createElement(
                     'thead',
-                    { onClick: this._sort.bind(this) },
+                    null,
                     _react2.default.createElement(
                         'tr',
                         null,
-                        this.props.headers.map(function (title, idx) {
-                            if (this.state.sortby === idx) {
-                                title += ' *';
+                        this.props.headers.map(function (item) {
+                            if (_this2.state.sortby === item) {
+                                item += ' *';
                             }
                             return _react2.default.createElement(
                                 'th',
-                                { key: idx },
-                                title
+                                { key: item, onClick: _this2._sort.bind(_this2, item) },
+                                item
                             );
                         }, this)
                     )
@@ -85,26 +104,26 @@ var Table = function (_Component) {
                 _react2.default.createElement(
                     'tbody',
                     { onDoubleClick: this._edit.bind(this) },
-                    this.state.data.map(function (row, rowidx) {
+                    this.state.data.map(function (item, rowidx) {
                         return _react2.default.createElement(
                             'tr',
                             { key: rowidx },
-                            row.map(function (cell, idx) {
-                                var content = cell;
+                            Object.keys(item).map(function (cell, idx) {
+                                var content = item[cell];
                                 var edit = this.state.edit;
-                                if (edit && edit.row === rowidx && edit.cell === idx) {
+                                if (edit && edit.row === rowidx && edit.cell === cell) {
                                     content = _react2.default.createElement(
                                         'form',
-                                        null,
-                                        _react2.default.createElement('input', { type: 'text', defaultValue: cell })
+                                        { onSubmit: this._save.bind(this) },
+                                        _react2.default.createElement(_FormInput2.default, { ref: 'input', defaultValue: item[cell] })
                                     );
                                 }
                                 return _react2.default.createElement(
                                     'td',
-                                    { key: idx, 'data-row': rowidx },
+                                    { key: idx, 'data-row': rowidx, 'data-cell': cell },
                                     content
                                 );
-                            }, this)
+                            }, _this2)
                         );
                     }, this)
                 )

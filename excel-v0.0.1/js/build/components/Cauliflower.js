@@ -62,10 +62,8 @@ var Cauliflower = function (_Component) {
             var data = Array.from(this.state.data);
             var inputData = this.refs.form.getData();
 
-            console.dirxml(inputData);
             data.unshift(inputData);
             console.dirxml(data);
-            // //data.push(this.refs.form.getData());
             this.setState({
                 data: data,
                 isOpen: false

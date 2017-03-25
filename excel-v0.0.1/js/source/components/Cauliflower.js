@@ -23,10 +23,8 @@ class Cauliflower extends Component {
         let data = Array.from(this.state.data);
         let inputData = this.refs.form.getData();
 
-        console.dirxml(inputData)
         data.unshift(inputData);
         console.dirxml(data)
-        // //data.push(this.refs.form.getData());
         this.setState({
             data: data,
             isOpen: false,

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import FormInput from './FormInput';
 
 class Table extends Component {
     constructor(props) {
@@ -10,55 +11,67 @@ class Table extends Component {
         };
     }
 
-    _sort(e) {
-        const column = e.target.cellIndex;
+    _sort(key) {
         let data = Array.from(this.state.data);
         data.sort(function(a, b) {
-            return a[column] < b[column] ? 1 : -1;
+            return a[key] < b[key] ? 1 : -1;
         });
         this.setState({
             data: data,
-            sortby: column,
+            sortby: key,
         });
     }
 
     _edit(e) {
+        console.log(e.target.dataset);
         this.setState({
             edit: {
                 row: parseInt(e.target.dataset.row),
-                cell: e.target.cellIndex,
+                cell: e.target.dataset.cell,
             }
         });
+    }
+
+    _save(e) {
+        e.preventDefault();
+        const value = this.refs.input.getValue();
+        let data = Array.from(this.state.data);
+        data[this.state.edit.row][this.state.edit.cell] = value;
+        console.dirxml(data)
+        this.setState({
+            data: data,
+            edit: null,
+        })
     }
 
     render() {
         return (
             <table>
-                <thead onClick={this._sort.bind(this)}>
+                <thead>
                     <tr>{
-                        this.props.headers.map(function(title, idx) {
-                            if (this.state.sortby === idx) {
-                                title += ' *';
+                        this.props.headers.map(item => {
+                            if (this.state.sortby === item) {
+                                item += ' *';
                             }
-                            return <th key={idx}>{title}</th>;
+                            return <th key={item} onClick={this._sort.bind(this, item)}>{item}</th>;
                         }, this)
                     }</tr>
                 </thead>
                 <tbody onDoubleClick={this._edit.bind(this)}>
-                    {this.state.data.map(function(row, rowidx) {
+                    {this.state.data.map((item, rowidx) => {
                         return (
                             <tr key={rowidx}>{
-                                row.map(function(cell, idx) {
-                                    let content = cell;
+                                Object.keys(item).map(function(cell, idx) {
+                                    let content = item[cell];
                                     const edit = this.state.edit;
-                                    if (edit && edit.row === rowidx && edit.cell === idx) {
+                                    if (edit && edit.row === rowidx && edit.cell === cell) {
                                         content = (
-                                            <form>
-                                                <input type="text" defaultValue={cell} />
+                                            <form onSubmit={this._save.bind(this)}>
+                                                <FormInput ref="input" defaultValue={item[cell]} />
                                             </form>
                                         );
                                     }
-                                    return <td key={idx} data-row={rowidx}>{content}</td>;
+                                    return <td key={idx} data-row={rowidx}　data-cell={cell}>{content}</td>;
                                 }, this)
                             }</tr>
                         );

@@ -15,11 +15,7 @@ var _Cauliflower2 = _interopRequireDefault(_Cauliflower);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var headers = ['title', 'year', 'price'];
-var data = [
-// ['sample1', '2017', '1,000'],
-// ['sample2', '2016', '4,000'],
-// ['sample3', '2015', '8,000'],
-{ title: 'sample1', year: '2017', price: '1000' }, { title: 'sample2', year: '2015', price: '5000' }, { title: 'sample3', year: '2016', price: '8000' }];
+var data = [{ title: 'sample1', year: '2017', price: '1000' }, { title: 'sample2', year: '2015', price: '5000' }, { title: 'sample3', year: '2016', price: '8000' }];
 
 _reactDom2.default.render(_react2.default.createElement(
     'div',

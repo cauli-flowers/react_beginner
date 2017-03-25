@@ -12,7 +12,7 @@ class Dialog extends Component {
                     <div className="DialogHeader">{this.props.header}</div>
                     <div className="DialogBody">{this.props.children}</div>
                     <div className="DialogFooter">
-                        <button onClick={this.props.onAction}>close</button>
+                        <button onClick={this.props.onAction}>add</button>
                     </div>
                 </div>
             </div>

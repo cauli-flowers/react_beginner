@@ -52,7 +52,7 @@ var Dialog = function (_Component) {
                         _react2.default.createElement(
                             'button',
                             { onClick: this.props.onAction },
-                            'close'
+                            'add'
                         )
                     )
                 )
