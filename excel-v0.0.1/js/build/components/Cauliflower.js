@@ -99,7 +99,7 @@ var Cauliflower = function (_Component) {
                     { onClick: this._showState.bind(this) },
                     'show'
                 ),
-                _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data, onDataChange: this._onDataChange.bind(this) }),
+                _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data }),
                 this.state.isOpen ? _react2.default.createElement(
                     _Dialog2.default,
                     { modal: true, header: 'Test', onAction: this._add.bind(this) },

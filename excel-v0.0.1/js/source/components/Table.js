@@ -14,6 +14,7 @@ class Table extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps");
         this.setState({data: nextProps.data});
     }
 
@@ -48,11 +49,6 @@ class Table extends Component {
             data: data,
             edit: null,
         });
-        this._fireDataChange(data);
-    }
-
-    _fireDataChange(data) {
-        this.props.onDataChange(data);
     }
 
     render() {

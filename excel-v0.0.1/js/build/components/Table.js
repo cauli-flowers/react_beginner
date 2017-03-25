@@ -42,6 +42,7 @@ var Table = function (_Component) {
     _createClass(Table, [{
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
+            console.log("componentWillReceiveProps");
             this.setState({ data: nextProps.data });
         }
     }, {
@@ -79,12 +80,6 @@ var Table = function (_Component) {
                 data: data,
                 edit: null
             });
-            this._fireDataChange(data);
-        }
-    }, {
-        key: '_fireDataChange',
-        value: function _fireDataChange(data) {
-            this.props.onDataChange(data);
         }
     }, {
         key: 'render',

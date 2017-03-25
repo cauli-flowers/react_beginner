@@ -48,7 +48,7 @@ class Cauliflower extends Component {
                 <Logo />
                 <button onClick={this._openDialog.bind(this)}>add</button>
                 <button onClick={this._showState.bind(this)}>show</button>
-                <Table headers={this.props.headers} data={this.state.data} onDataChange={this._onDataChange.bind(this)} />
+                <Table headers={this.props.headers} data={this.state.data} />
                 {this.state.isOpen
                     ? <Dialog modal={true} header={'Test'} onAction={this._add.bind(this)}>
                         <Form
