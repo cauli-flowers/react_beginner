@@ -149,8 +149,7 @@ var Excel = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'Excel' },
-                this._renderTable(),
-                this._renderDialog()
+                this._renderTable()
             );
         }
     }, {

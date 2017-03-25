@@ -104,6 +104,11 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
+        key: '_showState',
+        value: function _showState() {
+            console.dirxml(this.state);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -114,6 +119,11 @@ var Cauliflower = function (_Component) {
                     'button',
                     { onClick: this._openDialog.bind(this) },
                     'add'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this._showState.bind(this) },
+                    'show'
                 ),
                 _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data, onDataChange: this._onDataChange.bind(this) }),
                 this.state.isOpen ? _react2.default.createElement(
@@ -132,7 +142,7 @@ var Cauliflower = function (_Component) {
 }(_react.Component);
 
 Cauliflower.propTypes = {
-    data: _react.PropTypes.arrayOf(_react.PropTypes.string),
+    data: _react.PropTypes.arrayOf(_react.PropTypes.any),
     isOpen: _react.PropTypes.bool
 };
 
@@ -439,7 +449,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } //
 
 var Table = function (_Component) {
     _inherits(Table, _Component);
@@ -459,9 +469,15 @@ var Table = function (_Component) {
     }
 
     _createClass(Table, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.setState({ data: nextProps.data });
+        }
+    }, {
         key: '_sort',
         value: function _sort(key) {
             var data = Array.from(this.state.data);
+            console.dirxml(data);
             data.sort(function (a, b) {
                 return a[key] < b[key] ? 1 : -1;
             });
@@ -559,7 +575,7 @@ var Table = function (_Component) {
 }(_react.Component);
 
 Table.propTypes = {
-    data: _react.PropTypes.arrayOf(_react.PropTypes.string)
+    data: _react.PropTypes.arrayOf(_react.PropTypes.any)
 };
 
 exports.default = Table;

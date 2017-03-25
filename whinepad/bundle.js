@@ -381,8 +381,7 @@ var Excel = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'Excel' },
-                this._renderTable(),
-                this._renderDialog()
+                this._renderTable()
             );
         }
     }, {
@@ -982,9 +981,11 @@ var Whinepad = function (_Component) {
                 return;
             }
             var data = Array.from(this.state.data);
+
             data.unshift(this.refs.form.getData());
             this.setState({ addnew: false, data: data });
             this._commitToStorage(data);
+            console.log(this.state);
         }
     }, {
         key: '_onExcelDataChange',

@@ -1,13 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
-
-type Props = {
-    header: ?string,
-    modal: bool,
-};
-
 class Dialog extends Component {
-    constructor(props: Props) {
+    constructor(props) {
         super(props);
     }
 

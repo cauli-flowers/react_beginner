@@ -1,4 +1,4 @@
-// 
+//
 
 import React, {Component, PropTypes} from 'react';
 import FormInput from './FormInput';
@@ -13,8 +13,13 @@ class Table extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({data: nextProps.data});
+    }
+
     _sort(key) {
         let data = Array.from(this.state.data);
+        console.dirxml(data)
         data.sort(function(a, b) {
             return a[key] < b[key] ? 1 : -1;
         });
@@ -90,7 +95,7 @@ class Table extends Component {
 
 Table.propTypes = {
     data: PropTypes.arrayOf(
-        PropTypes.string
+        PropTypes.any
     ),
 };
 

@@ -78,6 +78,11 @@ var Cauliflower = function (_Component) {
             });
         }
     }, {
+        key: '_showState',
+        value: function _showState() {
+            console.dirxml(this.state);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -88,6 +93,11 @@ var Cauliflower = function (_Component) {
                     'button',
                     { onClick: this._openDialog.bind(this) },
                     'add'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this._showState.bind(this) },
+                    'show'
                 ),
                 _react2.default.createElement(_Table2.default, { headers: this.props.headers, data: this.state.data, onDataChange: this._onDataChange.bind(this) }),
                 this.state.isOpen ? _react2.default.createElement(
@@ -106,7 +116,7 @@ var Cauliflower = function (_Component) {
 }(_react.Component);
 
 Cauliflower.propTypes = {
-    data: _react.PropTypes.arrayOf(_react.PropTypes.string),
+    data: _react.PropTypes.arrayOf(_react.PropTypes.any),
     isOpen: _react.PropTypes.bool
 };
 

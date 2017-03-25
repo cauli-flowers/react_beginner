@@ -98,7 +98,6 @@ class Excel extends Component {
         return (
             <div className="Excel">
                 {this._renderTable()}
-                {this._renderDialog()}
             </div>
         );
     }
